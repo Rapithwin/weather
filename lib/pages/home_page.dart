@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather/api/geocoding_api.dart';
 import 'package:weather/models/geocoding_model.dart';
 
@@ -11,11 +12,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<Geocoding> futureCity;
+  // Use latitude and longitue to call weather api
+  late Position currentLocation;
 
   @override
   void initState() {
     super.initState();
     getCityByName("Tehran").then((value) => futureCity = value);
+    Geolocator.getCurrentPosition().then((value) => currentLocation = value);
   }
 
   @override
@@ -26,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Center(
-              child: Text(futureCity[0].name!),
+              child: Text("Hello"),
             );
           }
           if (snapshot.hasError) {
