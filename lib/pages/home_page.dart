@@ -14,14 +14,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late CurrentWeather futureWeather;
-  // Use latitude and longitue to call weather api
-  late Position currentLocation;
+  bool isLoading = false;
+
+  Future refreshPage() async {
+    setState(() {
+      isLoading = true;
+    });
+    futureWeather = await getCurrentWeather();
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    getCurrentWeather().then((value) => futureWeather = value);
-    Geolocator.getCurrentPosition().then((value) => currentLocation = value);
+    refreshPage();
   }
 
   @override
@@ -30,17 +38,13 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(
         future: getCurrentWeather(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Center(
-              child: Text(futureWeather.name),
-            );
-          }
-          if (snapshot.hasError) {
-            debugPrint(snapshot.error.toString());
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Center(
+                  child: Text(futureWeather.name),
+                );
         },
       ),
     );

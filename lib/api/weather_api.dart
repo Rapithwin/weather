@@ -17,8 +17,7 @@ Future<CurrentWeather> getCurrentWeather() async {
   late Position position;
 
   if (locationPermission == LocationPermission.denied ||
-      locationPermission == LocationPermission.deniedForever ||
-      locationPermission == LocationPermission.unableToDetermine) {
+      locationPermission == LocationPermission.deniedForever) {
     futureGeo = await getCityByName("London");
   } else {
     futureGeo = null;
