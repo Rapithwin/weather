@@ -50,7 +50,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 20,
                     ),
                     Text(
-                      "Get weather information, forcasts when and how you want it.",
+                      "Get weather information and forcasts when and how you want them.",
                       style: textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
@@ -62,7 +62,6 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        determinePosition();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

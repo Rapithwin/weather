@@ -7,10 +7,12 @@ import 'package:http/http.dart' as http;
 import 'package:weather/api/geocoding_api.dart';
 import 'package:weather/models/geocoding_model.dart';
 import 'package:weather/models/weather_model.dart';
+import 'package:weather/request_permission.dart';
 
 final String apiKey = dotenv.env["API_KEY"]!;
 
 Future<CurrentWeather> getCurrentWeather() async {
+  await requestLocation();
   late List<Geocoding>? futureGeo;
   final LocationPermission locationPermission =
       await Geolocator.checkPermission();
@@ -18,6 +20,7 @@ Future<CurrentWeather> getCurrentWeather() async {
 
   if (locationPermission == LocationPermission.denied ||
       locationPermission == LocationPermission.deniedForever) {
+    debugPrint(locationPermission.toString());
     futureGeo = await getCityByName("London");
   } else {
     futureGeo = null;

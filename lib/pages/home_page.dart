@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:weather/api/geocoding_api.dart';
 import 'package:weather/api/weather_api.dart';
-import 'package:weather/models/geocoding_model.dart';
 import 'package:weather/models/weather_model.dart';
 
 class HomePage extends StatefulWidget {
