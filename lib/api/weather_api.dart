@@ -5,19 +5,27 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather/api/geocoding_api.dart';
+import 'package:weather/models/geocoding_model.dart';
 import 'package:weather/models/weather_model.dart';
 
 final String apiKey = dotenv.env["API_KEY"]!;
 
 Future<CurrentWeather> getCurrentWeather() async {
-  final futureGeo = await getCityByName("London");
-  final locationPermission = await Geolocator.checkPermission();
+  late List<Geocoding>? futureGeo;
+  final LocationPermission locationPermission =
+      await Geolocator.checkPermission();
+  late Position position;
 
-  // if (locationPermission == LocationPermission.denied ||
-  //     locationPermission == LocationPermission.deniedForever ||
-  //     locationPermission == LocationPermission.unableToDetermine) {}
-  final lat = futureGeo[0].lat;
-  final lon = futureGeo[0].lon;
+  if (locationPermission == LocationPermission.denied ||
+      locationPermission == LocationPermission.deniedForever ||
+      locationPermission == LocationPermission.unableToDetermine) {
+    futureGeo = await getCityByName("London");
+  } else {
+    futureGeo = null;
+    position = await Geolocator.getCurrentPosition();
+  }
+  final lat = futureGeo?[0].lat ?? position.latitude;
+  final lon = futureGeo?[0].lon ?? position.longitude;
 
   final Map<String, dynamic> queryParams = {
     'lat': lat.toString(),
