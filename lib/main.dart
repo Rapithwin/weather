@@ -18,12 +18,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Weather',
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Constants.darkBlue),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             fontFamily: "OpenSans",
             color: Constants.darkBlue,
             fontWeight: FontWeight.w700,
             fontSize: 60,
+          ),
+          titleLarge: TextStyle(
+            fontFamily: "OpenSans",
+            color: Constants.darkBlue,
+            fontWeight: FontWeight.w700,
+            fontSize: 25,
           ),
           bodyMedium: TextStyle(
             fontFamily: "OpenSans",

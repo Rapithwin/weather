@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/api/weather_api.dart';
+import 'package:weather/constants.dart';
 import 'package:weather/models/weather_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +32,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final TextTheme textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
+      backgroundColor:
+          Constants.lightBlue, // TODO: Will depend on the time of the day.
       body: FutureBuilder(
         future: getCurrentWeather(),
         builder: (context, snapshot) {
@@ -39,8 +45,36 @@ class _HomePageState extends State<HomePage> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Center(
-                  child: Text(futureWeather.name),
+              : Stack(
+                  children: <Widget>[
+                    Positioned(
+                      top: 60,
+                      child: Row(
+                        children: <Widget>[
+                          SizedBox(width: 12),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Constants.whiteColor.withOpacity(0.23),
+                              ),
+                              child: Icon(Icons.menu),
+                            ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.13,
+                          ),
+                          Text(
+                            futureWeather.name,
+                            style: textTheme.titleLarge,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 );
         },
       ),
