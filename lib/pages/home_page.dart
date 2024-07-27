@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/constants.dart';
 import 'package:weather/models/weather_model.dart';
+import 'package:weather/widgets/weather_icon.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,12 +15,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late CurrentWeather futureWeather;
   bool isLoading = false;
+  final Widgets widgets = Widgets();
+  late SvgPicture svgIcon;
 
   Future refreshPage() async {
     setState(() {
       isLoading = true;
     });
     futureWeather = await getCurrentWeather();
+    svgIcon = await widgets.iconBasedOnWeather();
     setState(() {
       isLoading = false;
     });
@@ -51,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                       top: 60,
                       child: Row(
                         children: <Widget>[
-                          SizedBox(width: 12),
+                          const SizedBox(width: 12),
                           GestureDetector(
                             onTap: () {},
                             child: Container(
@@ -61,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(8),
                                 color: Constants.whiteColor.withOpacity(0.23),
                               ),
-                              child: Icon(Icons.menu),
+                              child: const Icon(Icons.menu),
                             ),
                           ),
                           SizedBox(
@@ -73,7 +78,8 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                    )
+                    ),
+                    Positioned(child: Container(child: svgIcon))
                   ],
                 );
         },

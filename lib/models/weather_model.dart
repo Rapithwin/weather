@@ -4,7 +4,7 @@ class CurrentWeather {
   int visibility;
   Wind wind;
   Rain? rain;
-  int dt;
+  int dt; // Time of data calculation
   Sys sys;
   int timezone;
   String name;
