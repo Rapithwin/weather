@@ -12,7 +12,11 @@ import 'package:weather/request_permission.dart';
 final String apiKey = dotenv.env["API_KEY"]!;
 
 Future<CurrentWeather> getCurrentWeather() async {
-  await requestLocation();
+  try {
+    await requestLocation();
+  } catch (e) {
+    debugPrint(e.toString());
+  }
   late List<Geocoding>? futureGeo;
   final LocationPermission locationPermission =
       await Geolocator.checkPermission();
@@ -40,7 +44,7 @@ Future<CurrentWeather> getCurrentWeather() async {
   );
 
   if (response.statusCode == 200) {
-    debugPrint("OK");
+    debugPrint("OK Weather");
     return CurrentWeather.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Failed ${response.body}");

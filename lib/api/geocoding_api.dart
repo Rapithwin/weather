@@ -21,7 +21,7 @@ Future<List<Geocoding>> getCityByName(String cityName) async {
   var jsonResponse = jsonDecode(response.body);
 
   if (response.statusCode == 200) {
-    debugPrint("OK");
+    debugPrint("OK Geo");
     return List<Geocoding>.from(
       jsonResponse.map(
         (x) => Geocoding.fromJson(x),

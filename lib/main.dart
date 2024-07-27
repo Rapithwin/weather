@@ -5,7 +5,9 @@ import 'package:weather/pages/home_page.dart';
 import 'package:weather/pages/welcome_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
 }
 

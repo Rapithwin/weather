@@ -46,42 +46,44 @@ class _HomePageState extends State<HomePage> {
       body: FutureBuilder(
         future: getCurrentWeather(),
         builder: (context, snapshot) {
-          return isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Stack(
-                  children: <Widget>[
-                    Positioned(
-                      top: 60,
-                      child: Row(
-                        children: <Widget>[
-                          const SizedBox(width: 12),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Constants.whiteColor.withOpacity(0.23),
-                              ),
-                              child: const Icon(Icons.menu),
-                            ),
+          if (isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Stack(
+              children: <Widget>[
+                Positioned(
+                  top: 60,
+                  child: Row(
+                    children: <Widget>[
+                      const SizedBox(width: 12),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Constants.whiteColor.withOpacity(0.23),
                           ),
-                          SizedBox(
-                            width: size.width * 0.13,
-                          ),
-                          Text(
-                            futureWeather.name,
-                            style: textTheme.titleLarge,
-                          )
-                        ],
+                          child: const Icon(Icons.menu),
+                        ),
                       ),
-                    ),
-                    Positioned(child: Container(child: svgIcon))
-                  ],
-                );
+                      SizedBox(
+                        width: size.width * 0.13,
+                      ),
+                      Text(
+                        futureWeather.name,
+                        style: textTheme.titleLarge,
+                      )
+                    ],
+                  ),
+                ),
+                Positioned(child: Container(child: svgIcon))
+              ],
+            );
+          }
         },
       ),
     );
