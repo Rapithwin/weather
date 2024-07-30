@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
     futureWeather = await getCurrentWeather();
-    svgIcon = await widgets.iconBasedOnWeather();
+    //svgIcon = await widgets.iconBasedOnWeather();
     setState(() {
       isLoading = false;
     });
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Positioned(child: Container(child: svgIcon))
+                //Positioned(child: Container(child: svgIcon))
               ],
             );
           }
