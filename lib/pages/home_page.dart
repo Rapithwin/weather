@@ -21,18 +21,20 @@ class _HomePageState extends State<HomePage> {
   Future refreshPage() async {
     setState(() {
       isLoading = true;
+      debugPrint("loading");
     });
     futureWeather = await getCurrentWeather();
     //svgIcon = await widgets.iconBasedOnWeather();
     setState(() {
       isLoading = false;
+      debugPrint("not loading");
     });
   }
 
   @override
   void initState() {
-    super.initState();
     refreshPage();
+    super.initState();
   }
 
   @override
