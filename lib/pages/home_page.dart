@@ -13,27 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late CurrentWeather futureWeather;
-  bool isLoading = false;
+  late Future<CurrentWeather> futureWeather;
   final Widgets widgets = Widgets();
   late SvgPicture svgIcon;
 
-  Future refreshPage() async {
-    setState(() {
-      isLoading = true;
-      debugPrint("loading");
-    });
-    futureWeather = await getCurrentWeather();
-    //svgIcon = await widgets.iconBasedOnWeather();
-    setState(() {
-      isLoading = false;
-      debugPrint("not loading");
-    });
-  }
-
   @override
   void initState() {
-    refreshPage();
+    futureWeather = getCurrentWeather();
     super.initState();
   }
 
@@ -46,11 +32,21 @@ class _HomePageState extends State<HomePage> {
       backgroundColor:
           Constants.lightBlue, // TODO: Will depend on the time of the day.
       body: FutureBuilder(
-        future: getCurrentWeather(),
+        future: futureWeather,
         builder: (context, snapshot) {
-          if (isLoading) {
+          if (snapshot.hasError) {
+            debugPrint(snapshot.error.toString());
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
+            );
+          } else if (!snapshot.hasData) {
+            return const Center(
+              child: Text("No Data"),
+            );
+          } else if (snapshot.data == null) {
+            return const Center(
+              child: Text("null"),
             );
           } else {
             return Stack(
@@ -76,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                         width: size.width * 0.13,
                       ),
                       Text(
-                        futureWeather.name,
+                        snapshot.data!.name,
                         style: textTheme.titleLarge,
                       )
                     ],
@@ -86,6 +82,9 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           }
+          return const Center(
+            child: Text("Connection error"),
+          );
         },
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather/pages/home_page.dart';
 import 'package:weather/pages/welcome_page.dart';
 
 void main() async {

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:weather/constants.dart';
 import 'package:weather/pages/home_page.dart';
+import 'package:weather/request_permission.dart';
 
 // TODO: Show this page only once using shared_preferences
 
@@ -60,12 +63,26 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
+                      onPressed: () async {
+                        requestLocation().then(
+                          (_) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          },
+                        ).onError(
+                          (error, _) {
+                            log(error.toString());
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ),
+                            );
+                          },
                         );
                       },
                       style: ElevatedButton.styleFrom(
