@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -39,6 +40,7 @@ Future<CurrentWeather> getCurrentWeather() async {
 
   if (response.statusCode == 200) {
     debugPrint("OK Weather");
+    log(response.body);
     return CurrentWeather.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Failed ${response.body}");

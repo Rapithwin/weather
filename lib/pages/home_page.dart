@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/constants.dart';
 import 'package:weather/models/weather_model.dart';

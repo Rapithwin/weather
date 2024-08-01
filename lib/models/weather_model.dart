@@ -27,7 +27,7 @@ class CurrentWeather {
         main: Main.fromJson(json["main"]),
         visibility: json["visibility"],
         wind: Wind.fromJson(json["wind"]),
-        rain: json["rain"],
+        rain: Rain.fromJson(json["rain"]),
         dt: json["dt"],
         sys: Sys.fromJson(json["sys"]),
         timezone: json["timezone"],
@@ -84,14 +84,14 @@ class Main {
 }
 
 class Rain {
-  double the1H;
+  double? the1H;
 
   Rain({
     required this.the1H,
   });
 
-  factory Rain.fromJson(Map<String, dynamic> json) => Rain(
-        the1H: json["1h"]?.toDouble(),
+  factory Rain.fromJson(Map<String, dynamic>? json) => Rain(
+        the1H: json?["1h"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {

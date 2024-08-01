@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/models/weather_model.dart';
@@ -14,13 +13,12 @@ class Widgets {
     sunrise = currentWeather.sys.sunrise;
     sunset = currentWeather.sys.sunset;
     timeShift = currentWeather.timezone;
-    final int now = DateTime.now().toUtc().millisecondsSinceEpoch ~/
-        Duration.millisecondsPerSecond;
-    final int currentTime = now - (timeShift);
-    final DateTime nowDt = DateTime.fromMillisecondsSinceEpoch(
-        currentTime * Duration.millisecondsPerSecond);
-    var format = DateFormat("Hm");
-    debugPrint(format.format(nowDt));
+
+    final DateTime nowUtc = DateTime.now().toUtc();
+    final DateTime localTime = nowUtc.add(Duration(seconds: timeShift));
+    final localFormatted = DateFormat("Hm").format(localTime);
+
+    debugPrint(localFormatted);
 
     switch (currentWeather.weather[0].id) {
       case >= 200 && < 300:
