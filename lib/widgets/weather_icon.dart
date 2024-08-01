@@ -9,7 +9,7 @@ class Widgets {
   late int sunset;
   late int timeShift;
 
-  Future<SvgPicture> iconBasedOnWeather() async {
+  Future<Widget> iconBasedOnWeather() async {
     final CurrentWeather currentWeather = await getCurrentWeather();
     sunrise = currentWeather.sys.sunrise;
     sunset = currentWeather.sys.sunset;
@@ -25,23 +25,29 @@ class Widgets {
     switch (currentWeather.weather[0].id) {
       case >= 200 && < 300:
         // Thunderstorm
-        return SvgPicture.asset("assets/icons/clouds_thunderstorm.svg");
+        return Image.asset("assets/icons/thunderstomr.png");
       case >= 300 && < 400:
         // Drizzle
-        return SvgPicture.asset("assets/icons/cloud_drizzel.svg");
+        return Image.asset("assets/icons/drizzle.png");
       case >= 500 && < 600:
         // Rain
-        debugPrint("Rain");
+        return Image.asset("assets/icons/rain.png");
+
       case >= 600 && < 700:
-        debugPrint("Snow");
+        return Image.asset("assets/icons/snow.png");
+
       case >= 700 && < 800:
         debugPrint("Atmosphere");
       case 800:
-        debugPrint("Clear");
+        return Image.asset("assets/icons/clear_day.png");
+
       case > 800 && < 900:
-        debugPrint("Clouds");
+        return Image.asset("assets/icons/cloudy.png");
     }
     debugPrint(currentWeather.weather[0].description);
-    return SvgPicture.asset("assets/icons/clouds_thunderstorm.svg");
+
+    return Image.asset(
+      "assets/icons/rain.png",
+    );
   }
 }

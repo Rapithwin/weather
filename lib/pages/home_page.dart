@@ -14,12 +14,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<CurrentWeather> futureWeather;
+  bool isLoading = false;
   final Widgets widgets = Widgets();
-  late SvgPicture svgIcon;
+  late Widget svgIcon;
+
+  Future loadIcon() async {
+    setState(() {
+      isLoading = true;
+    });
+    svgIcon = await widgets.iconBasedOnWeather();
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     futureWeather = getCurrentWeather();
+    loadIcon();
     super.initState();
   }
 
@@ -69,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       SizedBox(
-                        width: size.width * 0.13,
+                        width: size.width * 0.16,
                       ),
                       Text(
                         snapshot.data!.name,
@@ -78,7 +90,15 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                //Positioned(child: Container(child: svgIcon))
+                Positioned(
+                  top: 80,
+                  left: 20,
+                  right: 20,
+                  child: Container(
+                      child: isLoading
+                          ? const CircularProgressIndicator()
+                          : svgIcon),
+                )
               ],
             );
           }

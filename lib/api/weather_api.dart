@@ -39,7 +39,6 @@ Future<CurrentWeather> getCurrentWeather() async {
 
   if (response.statusCode == 200) {
     debugPrint("OK Weather");
-    debugPrint(response.body);
     return CurrentWeather.fromJson(jsonDecode(response.body));
   } else {
     throw Exception("Failed ${response.body}");
