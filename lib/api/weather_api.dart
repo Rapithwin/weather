@@ -32,6 +32,7 @@ Future<CurrentWeather> getCurrentWeather() async {
     'lat': lat.toString(),
     'lon': lon.toString(),
     'appid': apiKey,
+    'units': 'metric',
   };
 
   final response = await http.get(

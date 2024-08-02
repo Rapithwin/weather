@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   final Widgets widgets = Widgets();
   late Widget svgIcon;
+  late Widget backgroundColor;
 
   Future loadIcon() async {
     setState(() {
@@ -94,9 +95,44 @@ class _HomePageState extends State<HomePage> {
                   left: 20,
                   right: 20,
                   child: Container(
-                      child: isLoading
-                          ? const CircularProgressIndicator()
-                          : svgIcon),
+                    child:
+                        isLoading ? const CircularProgressIndicator() : svgIcon,
+                  ),
+                ),
+                Positioned(
+                  top: size.height * 0.57,
+                  left: 20,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "${snapshot.data!.main.temp.round().toString()}°",
+                        style: textTheme.headlineLarge?.copyWith(
+                          fontSize: 95,
+                        ),
+                      ),
+                      Text(
+                        "Feels Like: ${snapshot.data?.main.feelsLike.round()}°",
+                        style: textTheme.bodyLarge,
+                      )
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: size.height * 0.645,
+                  right: 120,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        snapshot.data!.weather[0].description,
+                        style: textTheme.bodyMedium?.copyWith(fontSize: 13),
+                      ),
+                      Text(
+                        "H:${snapshot.data!.main.tempMax.round()}° | L:${snapshot.data!.main.tempMin.round()}°",
+                        style: textTheme.bodyMedium?.copyWith(fontSize: 13),
+                      )
+                    ],
+                  ),
                 )
               ],
             );

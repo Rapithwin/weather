@@ -48,4 +48,29 @@ class Widgets {
       "assets/icons/rain.png",
     );
   }
+
+  // Future<Widget> currentTime() async {
+  //   final CurrentWeather currentWeather = await getCurrentWeather();
+  //   final DateTime sunrise =
+  //       DateTime.fromMillisecondsSinceEpoch(currentWeather.sys.sunrise * 1000);
+  //   final DateTime sunset =
+  //       DateTime.fromMillisecondsSinceEpoch(currentWeather.sys.sunset * 1000);
+  //   final timeShift = currentWeather.timezone;
+
+  //   final DateTime nowUtc = DateTime.now().toUtc();
+  //   final DateTime localTime = nowUtc.add(Duration(seconds: timeShift));
+  //   final int sunriseCompare = localTime.compareTo(sunrise);
+  //   final int sunsetCompare = localTime.compareTo(sunset);
+
+  //   final localFormatted = DateFormat("Hm").format(localTime);
+
+  //   if (sunriseCompare < 0 && sunsetCompare >= 0) {
+  //     log(localFormatted.toString());
+  //     return Text("Day");
+  //   } else {
+  //     log(localFormatted.toString());
+
+  //     return Text("Night");
+  //   }
+  // }
 }
