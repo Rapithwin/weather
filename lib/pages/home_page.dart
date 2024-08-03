@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   final Widgets widgets = Widgets();
   late Widget svgIcon;
   late Widget backgroundColor;
+  final weatherApi = WeatherAPI();
 
   Future loadIcon() async {
     setState(() {
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    futureWeather = getCurrentWeather();
+    futureWeather = weatherApi.getCurrentWeather();
     loadIcon();
     super.initState();
   }
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-                )
+                ),
               ],
             );
           }

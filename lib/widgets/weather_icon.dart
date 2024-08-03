@@ -7,9 +7,10 @@ class Widgets {
   late int sunrise;
   late int sunset;
   late int timeShift;
+  final weatherApi = WeatherAPI();
 
   Future<Widget> iconBasedOnWeather() async {
-    final CurrentWeather currentWeather = await getCurrentWeather();
+    final CurrentWeather currentWeather = await weatherApi.getCurrentWeather();
     sunrise = currentWeather.sys.sunrise;
     sunset = currentWeather.sys.sunset;
     timeShift = currentWeather.timezone;
