@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/constants.dart';
+import 'package:weather/models/forecast_model.dart';
 import 'package:weather/models/weather_model.dart';
+import 'package:weather/pages/forecast_row.dart';
 import 'package:weather/widgets/weather_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<CurrentWeather> futureWeather;
+  late Future<Forecast> futureForecast;
   bool isLoading = false;
   final Widgets widgets = Widgets();
   late Widget svgIcon;
@@ -135,6 +138,10 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                const Positioned(
+                  bottom: 50,
+                  child: ForecastRow(),
+                )
               ],
             );
           }

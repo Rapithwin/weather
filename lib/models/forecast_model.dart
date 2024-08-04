@@ -37,7 +37,7 @@ class City {
 class ForecastList {
   int? dt;
   Main main;
-  Weather weather;
+  List<Weather> weather;
 
   ForecastList({
     this.dt,
@@ -48,8 +48,10 @@ class ForecastList {
   factory ForecastList.fromJson(Map<String, dynamic> json) => ForecastList(
         dt: json['dt'],
         main: Main.fromJson(json['main']),
-        weather: Weather.fromJson(
-          json['weather'],
+        weather: List<Weather>.from(
+          json['weather'].map(
+            (x) => Weather.fromJson(x),
+          ),
         ),
       );
 }
