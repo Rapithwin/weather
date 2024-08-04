@@ -48,7 +48,6 @@ class WeatherAPI {
 
     if (response.statusCode == 200) {
       debugPrint("OK Weather");
-      log(response.body);
       return CurrentWeather.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed ${response.body}");

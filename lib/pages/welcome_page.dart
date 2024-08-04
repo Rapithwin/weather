@@ -66,11 +66,12 @@ class _WelcomePageState extends State<WelcomePage> {
                       onPressed: () async {
                         requestLocation().then(
                           (_) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const HomePage(),
                               ),
+                              (predicate) => false,
                             );
                           },
                         ).onError(
