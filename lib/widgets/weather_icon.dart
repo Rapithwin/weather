@@ -9,19 +9,15 @@ class Widgets {
   late int timeShift;
   final weatherApi = WeatherAPI();
 
-  Future<Widget> iconBasedOnWeather() async {
-    final CurrentWeather currentWeather = await weatherApi.getCurrentWeather();
-    sunrise = currentWeather.sys.sunrise;
-    sunset = currentWeather.sys.sunset;
-    timeShift = currentWeather.timezone;
-
+  Widget iconBasedOnWeather(
+      int sunrise, int sunset, int timeShift, int weatherId) {
     final DateTime nowUtc = DateTime.now().toUtc();
     final DateTime localTime = nowUtc.add(Duration(seconds: timeShift));
     final localFormatted = DateFormat("Hm").format(localTime);
 
     debugPrint(localFormatted);
 
-    switch (currentWeather.weather[0].id) {
+    switch (weatherId) {
       case >= 200 && < 300:
         // Thunderstorm
         return Image.asset("assets/icons/thunderstomr.png");
@@ -43,7 +39,7 @@ class Widgets {
       case > 800 && < 900:
         return Image.asset("assets/icons/cloudy.png");
     }
-    debugPrint(currentWeather.weather[0].description);
+    //debugPrint(currentWeather.weather[0].description);
 
     return Image.asset(
       "assets/icons/rain.png",

@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isLoading = true;
     });
-    svgIcon = await widgets.iconBasedOnWeather();
     setState(() {
       isLoading = false;
     });
@@ -65,6 +64,11 @@ class _HomePageState extends State<HomePage> {
               child: Text("null"),
             );
           } else {
+            final sunrise = snapshot.data!.sys.sunrise;
+            final sunset = snapshot.data!.sys.sunset;
+            final timeShift = snapshot.data!.timezone;
+            final weatherId = snapshot.data!.weather[0].id;
+
             return Stack(
               children: <Widget>[
                 Positioned(
@@ -99,9 +103,8 @@ class _HomePageState extends State<HomePage> {
                   left: 20,
                   right: 20,
                   child: Container(
-                    child:
-                        isLoading ? const CircularProgressIndicator() : svgIcon,
-                  ),
+                      child: widgets.iconBasedOnWeather(
+                          sunrise, sunset, timeShift, weatherId)),
                 ),
                 Positioned(
                   top: size.height * 0.57,
