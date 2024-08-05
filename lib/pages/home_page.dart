@@ -98,6 +98,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                // Icon
                 Positioned(
                   top: 80,
                   left: 20,
@@ -106,9 +107,10 @@ class _HomePageState extends State<HomePage> {
                       child: widgets.iconBasedOnWeather(
                           sunrise, sunset, timeShift, weatherId)),
                 ),
+                // Temperture
                 Positioned(
-                  top: size.height * 0.57,
-                  left: 20,
+                  top: size.height * 0.50,
+                  left: 30,
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -125,8 +127,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.645,
-                  right: 120,
+                  top: size.height * 0.597,
+                  right: 50,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -137,7 +139,11 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         "H:${snapshot.data!.main.tempMax.round()}° | L:${snapshot.data!.main.tempMin.round()}°",
                         style: textTheme.bodyMedium?.copyWith(fontSize: 13),
-                      )
+                      ),
+                      Text(
+                        "Humidity: ${snapshot.data!.main.humidity}%",
+                        style: textTheme.bodyMedium?.copyWith(fontSize: 13),
+                      ),
                     ],
                   ),
                 ),

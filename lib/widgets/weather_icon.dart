@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather/api/weather_api.dart';
-import 'package:weather/models/weather_model.dart';
 
 class Widgets {
-  late int sunrise;
-  late int sunset;
-  late int timeShift;
-  final weatherApi = WeatherAPI();
-
-  Widget iconBasedOnWeather(
-      int sunrise, int sunset, int timeShift, int weatherId) {
+  Widget iconBasedOnWeather(int weatherId,
+      [int? sunrise, int? sunset, int? timeShift]) {
     final DateTime nowUtc = DateTime.now().toUtc();
-    final DateTime localTime = nowUtc.add(Duration(seconds: timeShift));
+    final DateTime localTime = nowUtc.add(Duration(seconds: timeShift ?? 0));
     final localFormatted = DateFormat("Hm").format(localTime);
 
-    debugPrint(localFormatted);
+    //debugPrint(localFormatted);
 
     switch (weatherId) {
       case >= 200 && < 300:
