@@ -139,7 +139,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const Positioned(
-                  bottom: 50,
+                  bottom: 40,
+                  left: 10,
+                  right: 10,
                   child: ForecastRow(),
                 )
               ],

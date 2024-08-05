@@ -10,7 +10,7 @@ class Forecast {
   factory Forecast.fromJson(Map<String, dynamic> json) => Forecast(
         list: List<ForecastList>.from(
           json['list'].map(
-            (x) => Weather.fromJson(x),
+            (x) => ForecastList.fromJson(x),
           ),
         ),
         city: City.fromJson(

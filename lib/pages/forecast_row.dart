@@ -40,16 +40,25 @@ class _ForecastRowState extends State<ForecastRow> {
             child: Text("null"),
           );
         } else {
-          return ListView.builder(
-            itemCount: snapshot.data!.list.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Constants.lightBlue.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              );
-            },
+          return SizedBox(
+            height: 150,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.list.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Container(
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: Constants.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         }
         return const Center(
