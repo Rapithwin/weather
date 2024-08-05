@@ -63,16 +63,22 @@ class Main {
     this.temp,
   });
 
-  factory Main.fromJson(Map<String, dynamic> json) => Main(temp: json['temp']);
+  factory Main.fromJson(Map<String, dynamic> json) => Main(
+        temp: json['temp'],
+      );
 }
 
 class Weather {
   String? main;
+  int? id;
 
   Weather({
     this.main,
+    this.id,
   });
 
-  factory Weather.fromJson(Map<String, dynamic> json) =>
-      Weather(main: json['main']);
+  factory Weather.fromJson(Map<String, dynamic> json) => Weather(
+        main: json['main'],
+        id: json['id'],
+      );
 }

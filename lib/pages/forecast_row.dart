@@ -22,6 +22,8 @@ class _ForecastRowState extends State<ForecastRow> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return FutureBuilder(
       future: futureForecast,
       builder: (context, snapshot) {
@@ -42,19 +44,30 @@ class _ForecastRowState extends State<ForecastRow> {
         } else {
           return SizedBox(
             height: 150,
-            child: ListView.builder(
+            child: ListView.separated(
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 11,
+              ),
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemCount: snapshot.data!.list.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Container(
-                    width: 120,
-                    decoration: BoxDecoration(
-                      color: Constants.whiteColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                return Container(
+                  width: 120,
+                  decoration: BoxDecoration(
+                    color: Constants.whiteColor.withOpacity(0.35),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "TODAY",
+                        style: textTheme.labelLarge,
+                      ),
+                    ],
                   ),
                 );
               },
