@@ -60,7 +60,7 @@ class ForecastList {
 }
 
 class Main {
-  double? temp;
+  num? temp;
 
   Main({
     this.temp,
