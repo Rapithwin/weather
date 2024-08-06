@@ -51,10 +51,13 @@ class _WelcomePageState extends State<WelcomePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      "Get weather information and forcasts when and how you want them.",
-                      style: textTheme.bodyMedium,
-                      textAlign: TextAlign.center,
+                    SizedBox(
+                      width: size.width - 50,
+                      child: Text(
+                        "Get weather information and forcasts when and how you want them.",
+                        style: textTheme.bodyMedium,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     SizedBox(
                       height: size.height * 0.24,
