@@ -45,3 +45,31 @@ class MyDrawer extends StatelessWidget {
     );
   }
 }
+
+class DrawerIcon extends StatelessWidget {
+  const DrawerIcon({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: 50,
+      left: 20,
+      child: GestureDetector(
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Constants.whiteColor.withOpacity(0.23),
+          ),
+          child: const Icon(Icons.menu),
+        ),
+      ),
+    );
+  }
+}
