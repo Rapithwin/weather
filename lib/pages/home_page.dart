@@ -4,6 +4,7 @@ import 'package:weather/constants.dart';
 import 'package:weather/models/forecast_model.dart';
 import 'package:weather/models/weather_model.dart';
 import 'package:weather/pages/forecast_row.dart';
+import 'package:weather/widgets/my_drawer.dart';
 import 'package:weather/widgets/weather_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      drawer: MyDrawer(),
       backgroundColor:
           Constants.lightBlue, // TODO: Will depend on the time of the day.
       body: FutureBuilder(
@@ -77,7 +79,9 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       const SizedBox(width: 12),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Scaffold.of(context).openDrawer();
+                        },
                         child: Container(
                           height: 50,
                           width: 50,
@@ -107,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                       child: widgets.iconBasedOnWeather(
                           sunrise, sunset, timeShift, weatherId)),
                 ),
-                // Temperture
+                // Temperature
                 Positioned(
                   top: size.height * 0.50,
                   left: 30,
