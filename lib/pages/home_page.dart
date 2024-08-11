@@ -70,12 +70,13 @@ class _HomePageState extends State<HomePage> {
                 return Stack(
                   children: <Widget>[
                     Positioned(
-                        left: size.width * 0.3,
-                        top: 60,
-                        child: Text(
-                          snapshot.data!.name,
-                          style: textTheme.titleLarge,
-                        )),
+                      left: size.width * 0.3,
+                      top: 60,
+                      child: Text(
+                        snapshot.data!.name,
+                        style: textTheme.titleLarge,
+                      ),
+                    ),
                     // Icon
                     Positioned(
                       top: 80,
