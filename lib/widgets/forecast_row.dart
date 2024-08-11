@@ -25,6 +25,7 @@ class _ForecastRowState extends State<ForecastRow> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+
     return FutureBuilder(
       future: futureForecast,
       builder: (context, snapshot) {
@@ -75,7 +76,11 @@ class _ForecastRowState extends State<ForecastRow> {
                       SizedBox(
                         height: 90,
                         child: widgets.iconBasedOnWeather(
-                            snapshot.data!.list[index].weather[0].id!),
+                          snapshot.data!.list[index].weather[0].id!,
+                          snapshot.data!.city.sunrise!,
+                          snapshot.data!.city.sunset!,
+                          currentTime: snapshot.data!.list[0].dt!,
+                        ),
                       ),
                       Text(
                         "${snapshot.data!.list[index].main.temp!.round().toString()}°",

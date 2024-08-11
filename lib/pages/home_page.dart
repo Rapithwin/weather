@@ -22,20 +22,11 @@ class _HomePageState extends State<HomePage> {
   late Widget svgIcon;
   late Widget backgroundColor;
   final weatherApi = WeatherAPI();
-
-  Future loadIcon() async {
-    setState(() {
-      isLoading = true;
-    });
-    setState(() {
-      isLoading = false;
-    });
-  }
+  final DateTime nowUtc = DateTime.now().toUtc();
 
   @override
   void initState() {
     futureWeather = weatherApi.getCurrentWeather();
-    loadIcon();
     super.initState();
   }
 
@@ -73,6 +64,9 @@ class _HomePageState extends State<HomePage> {
                 final timeShift = snapshot.data!.timezone;
                 final weatherId = snapshot.data!.weather[0].id;
 
+                final localTime = nowUtc.add(Duration(seconds: timeShift));
+                final localUnix = localTime.millisecondsSinceEpoch ~/ 1000;
+
                 return Stack(
                   children: <Widget>[
                     Positioned(
@@ -92,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                           weatherId,
                           sunrise,
                           sunset,
-                          timeShift,
+                          currentTime: localUnix,
                         ),
                       ),
                     ),
