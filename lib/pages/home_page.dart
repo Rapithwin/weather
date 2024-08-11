@@ -88,8 +88,13 @@ class _HomePageState extends State<HomePage> {
                       left: 20,
                       right: 20,
                       child: Container(
-                          child: widgets.iconBasedOnWeather(
-                              sunrise, sunset, timeShift, weatherId)),
+                        child: widgets.iconBasedOnWeather(
+                          weatherId,
+                          sunrise,
+                          sunset,
+                          timeShift,
+                        ),
+                      ),
                     ),
                     // Temperature
                     Positioned(

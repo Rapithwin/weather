@@ -32,11 +32,13 @@ class Widgets {
       case > 800 && < 900:
         return Image.asset("assets/icons/cloudy.png");
     }
+
+    return Text(weatherId.toString());
     //debugPrint(currentWeather.weather[0].description);
 
-    return Image.asset(
-      "assets/icons/rain.png",
-    );
+    // return Image.asset(
+    //   "assets/icons/rain.png",
+    // );
   }
 
   // Future<Widget> currentTime() async {
