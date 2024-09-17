@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/constants.dart';
@@ -6,7 +7,6 @@ import 'package:weather/models/weather_model.dart';
 import 'package:weather/widgets/forecast_row.dart';
 import 'package:weather/widgets/my_drawer.dart';
 import 'package:weather/widgets/weather_icon.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,23 +24,22 @@ class _HomePageState extends State<HomePage> {
   final weatherApi = WeatherAPI();
   final DateTime nowUtc = DateTime.now().toUtc();
 
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
   bool isLoading = false;
-
-  void _onRefresh() async {
-    isLoading = true;
-    await weatherApi.getCurrentWeather();
-    isLoading = false;
-    // if failed,use refreshFailed()
-    _refreshController.refreshCompleted();
-  }
 
   @override
   void initState() {
     futureWeather = weatherApi.getCurrentWeather();
     super.initState();
+  }
+
+  Future<void> _onRefresh() async {
+    setState(() {
+      isLoading = true;
+    });
+    await weatherApi.getCurrentWeather();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -52,10 +51,8 @@ class _HomePageState extends State<HomePage> {
       drawer: const MyDrawer(),
       backgroundColor:
           Constants.lightBlue, // TODO: Will depend on the time of the day.
-      body: SmartRefresher(
-        controller: _refreshController,
+      body: RefreshIndicator(
         onRefresh: _onRefresh,
-        header: const WaterDropHeader(),
         child: Stack(
           children: [
             FutureBuilder(
