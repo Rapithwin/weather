@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
       body: SmartRefresher(
         controller: _refreshController,
         onRefresh: _onRefresh,
-        header: const MaterialClassicHeader(),
+        header: const WaterDropHeader(),
         child: Stack(
           children: [
             FutureBuilder(
