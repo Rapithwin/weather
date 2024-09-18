@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather/pages/home_page.dart';
+import 'package:weather/pages/root_page.dart';
 import 'package:weather/pages/welcome_page.dart';
 
 int? initScreen;
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       home: initScreen == 0 || initScreen == null
           ? const WelcomePage()
-          : const HomePage(),
+          : const RootPage(),
     );
   }
 }
