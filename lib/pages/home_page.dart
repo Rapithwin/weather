@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/api/weather_api.dart';
 import 'package:weather/constants.dart';
