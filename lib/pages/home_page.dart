@@ -53,118 +53,126 @@ class _HomePageState extends State<HomePage> {
           Constants.lightBlue, // TODO: Will depend on the time of the day.
       body: RefreshIndicator(
         onRefresh: _onRefresh,
-        child: Stack(
-          children: [
-            FutureBuilder(
-              future: futureWeather,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  debugPrint(snapshot.error.toString());
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (!snapshot.hasData) {
-                  return const Center(
-                    child: Text("No Data"),
-                  );
-                } else if (snapshot.data == null) {
-                  return const Center(
-                    child: Text("null"),
-                  );
-                } else {
-                  final sunrise = snapshot.data!.sys.sunrise;
-                  final sunset = snapshot.data!.sys.sunset;
-                  final timeShift = snapshot.data!.timezone;
-                  final weatherId = snapshot.data!.weather[0].id;
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: SizedBox(
+            height: size.height,
+            child: Stack(
+              children: [
+                FutureBuilder(
+                  future: futureWeather,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      debugPrint(snapshot.error.toString());
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (!snapshot.hasData) {
+                      return const Center(
+                        child: Text("No Data"),
+                      );
+                    } else if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("null"),
+                      );
+                    } else {
+                      final sunrise = snapshot.data!.sys.sunrise;
+                      final sunset = snapshot.data!.sys.sunset;
+                      final timeShift = snapshot.data!.timezone;
+                      final weatherId = snapshot.data!.weather[0].id;
 
-                  final localTime = nowUtc.add(Duration(seconds: timeShift));
-                  final localUnix = localTime.millisecondsSinceEpoch ~/ 1000;
+                      final localTime =
+                          nowUtc.add(Duration(seconds: timeShift));
+                      final localUnix =
+                          localTime.millisecondsSinceEpoch ~/ 1000;
 
-                  return Stack(
-                    children: <Widget>[
-                      Positioned(
-                        left: size.width * 0.3,
-                        top: 60,
-                        child: Text(
-                          snapshot.data!.name,
-                          style: textTheme.titleLarge,
-                        ),
-                      ),
-                      // Icon
-                      Positioned(
-                        top: 80,
-                        left: 20,
-                        right: 20,
-                        child: Container(
-                          child: widgets.iconBasedOnWeather(
-                            weatherId,
-                            sunrise,
-                            sunset,
-                            currentTime: localUnix,
+                      return Stack(
+                        children: <Widget>[
+                          Positioned(
+                            left: size.width * 0.3,
+                            top: 60,
+                            child: Text(
+                              snapshot.data!.name,
+                              style: textTheme.titleLarge,
+                            ),
                           ),
-                        ),
-                      ),
-                      // Temperature
-                      Positioned(
-                        top: size.height * 0.50,
-                        left: 30,
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              "${snapshot.data!.main.temp.round().toString()}°",
-                              style: textTheme.headlineLarge?.copyWith(
-                                fontSize: 95,
+                          // Icon
+                          Positioned(
+                            top: 80,
+                            left: 20,
+                            right: 20,
+                            child: Container(
+                              child: widgets.iconBasedOnWeather(
+                                weatherId,
+                                sunrise,
+                                sunset,
+                                currentTime: localUnix,
                               ),
                             ),
-                            Text(
-                              "Feels Like: ${snapshot.data?.main.feelsLike.round()}°",
-                              style: textTheme.bodyLarge,
-                            )
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: size.height * 0.597,
-                        right: 50,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              snapshot.data!.weather[0].description,
-                              style:
-                                  textTheme.bodyMedium?.copyWith(fontSize: 13),
+                          ),
+                          // Temperature
+                          Positioned(
+                            top: size.height * 0.50,
+                            left: 30,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  "${snapshot.data!.main.temp.round().toString()}°",
+                                  style: textTheme.headlineLarge?.copyWith(
+                                    fontSize: 95,
+                                  ),
+                                ),
+                                Text(
+                                  "Feels Like: ${snapshot.data?.main.feelsLike.round()}°",
+                                  style: textTheme.bodyLarge,
+                                )
+                              ],
                             ),
-                            Text(
-                              "H:${snapshot.data!.main.tempMax.round()}° | L:${snapshot.data!.main.tempMin.round()}°",
-                              style:
-                                  textTheme.bodyMedium?.copyWith(fontSize: 13),
+                          ),
+                          Positioned(
+                            top: size.height * 0.597,
+                            right: 50,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  snapshot.data!.weather[0].description,
+                                  style: textTheme.bodyMedium
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                                Text(
+                                  "H:${snapshot.data!.main.tempMax.round()}° | L:${snapshot.data!.main.tempMin.round()}°",
+                                  style: textTheme.bodyMedium
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                                Text(
+                                  "Humidity: ${snapshot.data!.main.humidity}%",
+                                  style: textTheme.bodyMedium
+                                      ?.copyWith(fontSize: 13),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Humidity: ${snapshot.data!.main.humidity}%",
-                              style:
-                                  textTheme.bodyMedium?.copyWith(fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Positioned(
-                        bottom: 40,
-                        left: 10,
-                        right: 10,
-                        child: ForecastRow(),
-                      )
-                    ],
-                  );
-                }
-                return const Center(
-                  child: Text("Connection error"),
-                );
-              },
+                          ),
+                          const Positioned(
+                            bottom: 40,
+                            left: 10,
+                            right: 10,
+                            child: ForecastRow(),
+                          )
+                        ],
+                      );
+                    }
+                    return const Center(
+                      child: Text("Connection error"),
+                    );
+                  },
+                ),
+                const DrawerIcon(),
+              ],
             ),
-            const DrawerIcon(),
-          ],
+          ),
         ),
       ),
     );
