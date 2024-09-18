@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:weather/constants.dart';
+import 'package:weather/request_permission.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -26,7 +26,7 @@ class SettingsPage extends StatelessWidget {
               subtitle: const Text("Change location permission settings"),
               leading: const Icon(Icons.location_on),
               onTap: () async {
-                await Geolocator.openLocationSettings();
+                await requestLocation();
               },
             ),
             ListTile(
