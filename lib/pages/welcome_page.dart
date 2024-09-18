@@ -5,8 +5,6 @@ import 'package:weather/constants.dart';
 import 'package:weather/pages/home_page.dart';
 import 'package:weather/request_permission.dart';
 
-// TODO: Show this page only once using shared_preferences
-
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
