@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:weather/pages/home_page.dart';
 import 'package:weather/pages/welcome_page.dart';
 
-void main() async {
+int? initScreen;
+Future<void> main() async {
   await dotenv.load(fileName: ".env");
-
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  initScreen = prefs.getInt("initScreen");
+  await prefs.setInt("initScreen", 1);
   runApp(const MyApp());
 }
 
@@ -53,7 +59,9 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const WelcomePage(),
+      home: initScreen == 0 || initScreen == null
+          ? const WelcomePage()
+          : const HomePage(),
     );
   }
 }
