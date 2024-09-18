@@ -25,7 +25,7 @@ class _ForecastPageState extends State<ForecastPage> {
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-
+    final Size size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: futureForecast,
       builder: (context, snapshot) {
@@ -45,12 +45,12 @@ class _ForecastPageState extends State<ForecastPage> {
           );
         } else {
           return SizedBox(
-            height: 170,
+            height: size.height,
             child: ListView.separated(
               separatorBuilder: (context, index) => const SizedBox(
-                width: 11,
+                height: 11,
               ),
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: snapshot.data!.list.length,
               itemBuilder: (context, index) {
