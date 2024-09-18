@@ -40,7 +40,10 @@ class _RootPageState extends State<RootPage> {
               icon: Icon(Icons.lock_clock), label: "Forecast"),
         ],
       ),
-      body: pages[currentPageIndex],
+      body: IndexedStack(
+        index: currentPageIndex,
+        children: pages,
+      ),
     );
   }
 }
