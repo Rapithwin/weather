@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
                     final sunset = snapshot.data!.sys.sunset;
                     final timeShift = snapshot.data!.timezone;
                     final weatherId = snapshot.data!.weather[0].id;
-
                     final localTime = nowUtc.add(Duration(seconds: timeShift));
                     final localUnix = localTime.millisecondsSinceEpoch ~/ 1000;
 

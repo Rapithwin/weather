@@ -27,7 +27,7 @@ class _ForecastPageState extends State<ForecastPage> {
     setState(() {
       isLoading = true;
     });
-    await weatherApi.getCurrentWeather();
+    await weatherApi.getForecast();
     setState(() {
       isLoading = false;
     });

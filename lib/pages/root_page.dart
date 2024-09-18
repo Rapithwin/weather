@@ -37,7 +37,7 @@ class _RootPageState extends State<RootPage> {
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.sunny), label: "Today"),
           NavigationDestination(
-              icon: Icon(Icons.lock_clock), label: "Forecast"),
+              icon: Icon(Icons.access_time), label: "Forecast"),
         ],
       ),
       body: IndexedStack(
