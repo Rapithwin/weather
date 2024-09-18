@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
-          height: size.height,
+          height: size.height - 200,
           child: Stack(
             children: <Widget>[
               FutureBuilder(
